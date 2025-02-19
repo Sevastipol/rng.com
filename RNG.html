@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rarity Roll</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #000000; /* Default background color */
+            color: rgb(255, 255, 255);
+            font-family: Arial, sans-serif;
+            transition: background-color 0s; /* Remove transition for background color */
+        }
+        #imageContainer {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px; /* Space between image and description */
+            display: flex; /* Use flexbox to center content */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically (if needed) */
+        }
+        #imageContainer img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        #container {
+            text-align: center;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff00e6;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s; /* Add transform transition */
+            margin-top: 20px; /* Space between image and button */
+        }
+        button:hover {
+            background-color: #b30098;
+        }
+        h1 {
+            margin-bottom: 10px; /* Reduced space between title and image */
+            color: inherit; /* Ensures the color is inherited from the body */
+        }
+        #description {
+            margin-top: 10px; /* Space between image and description */
+            font-weight: bold; /* Style as desired */
+            color: rgb(255, 255, 255);
+        }
+        #rarityText {
+            margin-top: 10px; /* Space between button and rarity text */
+            font-weight: bold; /* Make the rarity text bold */
+            color: rgb(255, 255, 255); /* Change color for visibility */
+        }
+        #cashDisplay {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            z-index: 1000;
+            color: rgb(255, 255, 255); /* Set cash text color */
+        }
+        /* Animation for button click */
+        @keyframes clickEffect {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+        .button-click {
+            animation: clickEffect 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="cashDisplay">Cash: $0</div> <!-- Cash display -->
+    <div id="container">
+        <h1 id="resultTitle">Click to roll a title!</h1>
+        <div id="imageContainer">
+            <img id="rarityImage" src="" alt="Rarity Image">
+        </div>
+        <div id="description"></div>
+        <button id="rollButton">Roll</button>
+        <button id="resetButton">Reset Cash</button> <!-- Reset button -->
+        <div id="rarityText"></div>
+    </div>
+    <script>
+        const rarities = [
+            { title: "Concrete", background: "https://hips.hearstapps.com/hmg-prod/images/concrete-wall-royalty-free-image-1572896179.jpg", color: "#c7c6c6", description: "+1$" }, // Common
+            { title: "Grass", background: "https://fafard.com/wp-content/uploads/2022/03/Cyclamen-leaves92.png", color: "#c7c6c6", description: "+1$" },
+            { title: "Dirt", background: "https://photo.16pic.com/00/67/43/16pic_6743960_b.jpg", color: "#c7c6c6", description: "+1$" },
+            { title: "Water", background: "https://seabirdbottle.com/cdn/shop/articles/pexels-pixabay-144238.jpg?v=1683620435", color: "#c7c6c6", description: "+2$" },
+            { title: "Rock", background: "https://serbu.ca/wp-content/uploads/2019/03/40mm-round-rocks.jpg", color: "#c7c6c6", description: "+2$" },
+            { title: "Wood", background: "https://duffield-timber.transforms.svdcdn.com/production/gallery/walnut/Walnut-Appearance.jpg?w=800&h=533&q=85&fm=jpg&fit=crop&dm=1654770675&s=e341bd43250b00367701a2394b60666f", color: "#0bff03", description: "+3$" }, // Uncommon
+            { title: "Aluminum", background: "https://media.istockphoto.com/id/477679508/photo/gray-brushed-metal-texture-background-steel-or-aluminium.jpg?s=612x612&w=0&k=20&c=eaTrJihfJYPkpdIrVQP9W2qDvGYw6uLLMWQFOpDRkdA=", color: "#0bff03", description: "+4$" },
+            { title: "Plastic", background: "https://d12oja0ew7x0i8.cloudfront.net/images/Article_Images/ImageForArticle_21427_16469131571923421.jpg", color: "#0bff03", description: "+2$" },
+            { title: "Fabric", background: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFdebsHQxfzQQ_ePa9SdJbJlVXEYFYsCGRPg&s", color: "#0bff03", description: "+3$" },
+            { title: "Copper", background: "https://finemetal.ro/wp-content/uploads/what-is-alloy-of-copper-and-tin-where-to-use-1300x632-1.webp", color: "#0bff03", description: "+3$" },
+            { title: "Fire", background: "https://daily.jstor.org/wp-content/uploads/2015/08/Fire.jpg", color: "#3377ff", description: "+8$" }, // Rare
+            { title: "Ice", background: "https://www.northeastohioparent.com/wp-content/uploads/2018/12/bigstock-Colorful-Ice-Abstract-Ice-Tex-227199499.jpg", color: "#3377ff", description: "+9$" },
+            { title: "Rubber", background: "https://img.freepik.com/free-photo/top-view-close-up-vinyl-texture_23-2149075978.jpg", color: "#3377ff", description: "+11$" },
+            { title: "Honey", background: "https://media.post.rvohealth.io/wp-content/uploads/sites/3/2024/09/raw-honey-732x549-thumbnail.jpg", color: "#3377ff", description: "+12$" },
+            { title: "Quartz", background: "https://www.goldenerberg.at/fileadmin/_processed_/c/b/csm_121_305522f31a.jpg", color: "#3377ff", description: "+10$" },
+            { title: "Iron", background: "https://media.istockphoto.com/id/1298961857/photo/molybdenite-molybdenite-is-a-molybdenum-disulfide-mineral-with-the-chemical-formula-mos2.jpg?s=612x612&w=0&k=20&c=aeXzRvFQ5IVqsKZSAu7dIGAPCmhGhzVjZOruUIopPXA=", color: "#9a17ff", description: "+36$" }, // Epic
+            { title: "Gallium", background: "https://www.matltech.com/uploads/High-purity-gallium-3.jpg", color: "#9a17ff", description: "+37$" },
+            { title: "Amethyst", background: "https://energymuse.com/cdn/shop/files/AMETHYSTMEANING-AMETHYSTHEALINGPROPERTIES-HEADER_2400x_ade8fc65-a21f-47e0-be6f-88dbe5e0189e_1800x.jpg?v=1673242774", color: "#9a17ff", description: "+34$" },
+            { title: "Sulfur", background: "https://media.allure.com/photos/61523f15dd9079c3e30a6a20/master/pass/sulfur-natural-element.jpg", color: "#9a17ff", description: "+46$" },
+            { title: "Aquamarine", background: "https://injewels.net/cdn/shop/articles/aquamarine-998580.jpg?v=1699125721", color: "#9a17ff", description: "+38$" },
+            { title: "Legendary Title 1", background: "path/to/legendary1.jpg", color: "#ffe400", description: "+103$" }, // Legendary
+            { title: "Legendary Title 2", background: "path/to/legendary2.jpg", color: "#ffe400", description: "+128$" },
+            { title: "Legendary Title 3", background: "path/to/legendary3.jpg", color: "#ffe400", description: "+102$" },
+            { title: "Legendary Title 4", background: "path/to/legendary4.jpg", color: "#ffe400", description: "+104$" },
+            { title: "Legendary Title 5", background: "path/to/legendary5.jpg", color: "#ffe400", description: "+149$" },
+            { title: "Mythic Title 1", background: "path/to/mythic1.jpg", color: "#ff00c3", description: "+848$" }, // Mythic
+            { title: "Mythic Title 2", background: "path/to/mythic2.jpg", color: "#ff00c3", description: "+912$" }
+        ];
+
+        const probabilities = [55, 30, 9, 5, 0.9, 0.1];
+
+        let totalCash = localStorage.getItem('totalCash') ? parseFloat(localStorage.getItem('totalCash')) : 0;
+
+        function updateCashDisplay() {
+            document.getElementById('cashDisplay').innerText = `Cash: $${totalCash.toFixed(2)}`;
+            localStorage.setItem('totalCash', totalCash);
+        }
+
+        function addCash(amount) {
+            const cashValue = parseFloat(amount.replace(/[^0-9.-]+/g, ""));
+            totalCash += cashValue;
+            updateCashDisplay();
+        }
+
+        function resetCash() {
+            totalCash = 0;
+            updateCashDisplay();
+        }
+
+        function getRandomRarity() {
+            const rand = Math.random() * 100;
+            let cumulativeProbability = 0;
+
+            for (let i = 0; i < probabilities.length; i++) {
+                cumulativeProbability += probabilities[i];
+                if (rand < cumulativeProbability) {
+                    return i; // Return rarity index
+                }
+            }
+        }
+
+        document.getElementById('rollButton').addEventListener('click', (e) => {
+            // Add animation class
+            const button = e.currentTarget;
+            button.classList.add('button-click');
+
+            // Handle roll logic
+            const rarityIndex = getRandomRarity();
+            const titleObj = rarities[rarityIndex * 5 + Math.floor(Math.random() * 5)];
+            document.getElementById('resultTitle').innerText = titleObj.title;
+            document.getElementById('description').innerText = titleObj.description;
+            document.getElementById('rarityImage').src = titleObj.background;
+            document.body.style.backgroundColor = titleObj.color;
+
+            // Add cash when rolling
+            addCash(titleObj.description);
+
+            const rarityLabels = ["55%", "30%", "9%", "5%", "0.9%", "0.1%"];
+            document.getElementById('rarityText').innerText = `Rarity: ${rarityLabels[rarityIndex]}`;
+
+            // Remove animation class after 300ms
+            setTimeout(() => {
+                button.classList.remove('button-click');
+            }, 300);
+        });
+
+        document.getElementById('resetButton').addEventListener('click', resetCash); // Reset cash on button click
+
+        // Initialize cash display when page loads
+        updateCashDisplay();
+    </script>
+</body>
+</html>
