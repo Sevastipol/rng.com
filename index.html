@@ -48,6 +48,7 @@
     <div id="iframe-container">
         <iframe id="videoFrame"></iframe>
     </div>
+    <button id= "reset" style= "height: 200px; width: 300px; display: 'hidden';">
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -60,6 +61,7 @@
                 document.getElementById('videoFrame').src = videoUrl;
                 document.getElementById('iframe-container').style.display = 'block';
                 document.getElementById('prompt').style.display = 'none';
+                document.getElementById('reset').style.display = 'visible';
             } else {
                 alert('Please enter a valid URL.');
             }
