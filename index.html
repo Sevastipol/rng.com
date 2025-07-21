@@ -41,7 +41,7 @@
 </head>
 <body>
     <div id="prompt">
-        <h2>Enter the Video URL:</h2>
+        <h2>Enter the Video URL (excluding https://)</h2>
         <input type="text" id="videoUrl" placeholder="https://example.com/embed/video">
         <button id="mango" onclick="loadVideo()">Load Video</button>
     </div>
@@ -55,7 +55,7 @@
         });
 
         function loadVideo() {
-            const videoUrl = document.getElementById('videoUrl').value;
+            const videoUrl = ('https://' + document.getElementById('videoUrl').value;)
             if (videoUrl) {
                 document.getElementById('videoFrame').src = videoUrl;
                 document.getElementById('iframe-container').style.display = 'block';
