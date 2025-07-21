@@ -48,7 +48,7 @@
     <div id="iframe-container">
         <iframe id="videoFrame"></iframe>
     </div>
-    <button id= "reset" style= "height: 200px; width: 300px; visibility: hidden;">
+    <button id= "reset" style= "height: 200px; width: 300px; visibility: hidden;" onclick="restart()">
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -65,6 +65,12 @@
             } else {
                 alert('Please enter a valid URL.');
             }
+        }
+        function restart() {
+            document.getElementById('iframe-container').style.visibility = 'hidden';
+                document.getElementById('prompt').style.visibility = 'visible';
+                document.getElementById('reset').style.visibility = 'hidden';
+                document.getElementById('mango').style.visibility = 'visible';
         }
     </script>
 </body>
