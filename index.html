@@ -30,13 +30,18 @@
             height: 100%;
             border: none;
         }
+        #mango {
+            width: 200px;
+            height: 150px;
+            border-color: blue;
+        }
     </style>
 </head>
 <body>
     <div id="prompt">
         <h2>Enter the Video URL:</h2>
         <input type="text" id="videoUrl" placeholder="https://example.com/embed/video">
-        <button onclick="loadVideo()">Load Video</button>
+        <button id="mango" onclick="loadVideo()">Load Video</button>
     </div>
     <div id="iframe-container">
         <iframe id="videoFrame"></iframe>
