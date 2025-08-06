@@ -8,6 +8,11 @@
 // DoS Script to Test Website Security
 
 // Configuration
+const pass = prompt('password')
+    if (pass !== 'DoS') {
+  window.location.href = "https://app.educationperfect.com/"} else {
+        return };
+        
 const url = prompt('Full website URL'); // Replace with your website URL
 const numRequests = prompt('Total requests, 1000 is good'); // Number of simultaneous requests
 const interval = prompt('interval in milliseconds, 10 is good'); // Time interval in milliseconds between requests
