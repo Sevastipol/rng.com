@@ -7,6 +7,7 @@
     <p>Password:</p>
     <input type="text" id="password" name="username">
     <button id="submit" onClick="mango()">Login</button>
+    <p id="iterationDisplay">Iteration: 0</p>
 
 <script>
 let password = "";
@@ -53,7 +54,7 @@ function testWebsiteSecurity() {
         while (password === "javascript") {
             testWebsiteSecurity();
             iteration ++;
-            document.title = (\`iteration: $\{iteration}\`);
+            document.getElementById('iterationDisplay').textContent = 'Iteration: ' + iteration;
         }
     `);
     newLoop(iteration);
