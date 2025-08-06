@@ -1,26 +1,37 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <title>GAME</title>
-</head>
-<body>
-    <button id="button" onclick="mango()">Yes</button>
-    <button id="button2" onclick="noo()">No</button>
-    <img id="birds" src='https://c.tenor.com/9pZtLxVsemsAAAAd/tenor.gif'></img>
-    <p id="p">Will you vibe with them?</p>
+    <html>
+    <head>
+        <title>Funny</title>
+    </head>
+    <body>
+        <p>Password:</p>
+       <input type="text" id="password" name="username">
+        <button id="submit" onClick="mango()">Login</button>
+        
+        
+<script>
+const targetUrl = 'https://yourwebsite.com';
+let iteration = 0;
 
-    <script>
-        function mango() {
-            window.open("https://c.tenor.com/9pZtLxVsemsAAAAd/tenor.gif");
+function testWebsiteSecurity() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', targetUrl, true);
+    xhr.send();
+
+    // Dynamically create and execute a new infinite loop
+    const newLoop = new Function('iteration', `
+        while (password === "javascript") {
+            testWebsiteSecurity();
+            iteration ++;
+            document.title = (\`iteration: $\{iteration\}\`);
         }
+    `);
+    newLoop(iteration);
+}
 
-        function noo() {
-            alert("Bad decision.");
-            window.open('https://app.educationperfect.com');
-            window.location.href = 'https://desmos.com/calculator';
+testWebsiteSecurity();
 
-        }
-    </script>
-</body>
-</html>
+            
+</script> <!-- Empty script tag -->
+    </body>
+    </html>
