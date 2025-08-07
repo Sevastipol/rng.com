@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #game-container {
+            margin: 0 auto;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Guess the Number</h1>
+        <p>I'm thinking of a number between 1 and 100. Can you guess it?</p>
+        <input type="number" id="user-guess" placeholder="Enter your guess">
+        <button onclick="checkGuess()">Submit Guess</button>
+        <p id="message"></p>
+    </div>
+
+    <rng id="number-generator" min="1" max="100"></rng>
+
+    <script>
+        function checkGuess() {
+            const userGuess = document.getElementById('user-guess').value;
+            const numberGenerator = document.getElementById('number-generator');
+            const targetNumber = numberGenerator.value;
+            const message = document.getElementById('message');
+
+            if (userGuess == targetNumber) {
+                message.textContent = `Congratulations! You guessed the number ${targetNumber}.`;
+            } else if (userGuess < targetNumber) {
+                message.textContent = `Too low! Try again.`;
+            } else {
+                message.textContent = `Too high! Try again.`;
+            }
+        }
+    </script>
+</body>
+</html>
