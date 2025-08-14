@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seegson AI</title>
-   <div id="deployment-40042b47-04dd-4395-a84f-2aae93e1406d"></div>
-<script src="https://studio.pickaxe.co/api/embed/bundle.js" defer></script>
-</body>
+    <meta charset="UTF-8" />
+    <title>Seegson Bank Login</title>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9dMQwl70yzpUMnWG08w2A4ltz-L2WKIwXF1Z_BSKLtykCf0BdsCBT_GuvYANQoJYJB7I&usqp=CAU" />
+    <img style="height:9%; width:9%" src="https://static.wikia.nocookie.net/avp/images/7/70/Seegson.png/revision/latest?cb=20191214225421" id="Seegson Bank Logo" onclick="reloadp()" />
+</head>
+<style>
+video {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 840px;
+            height: 580px;
+            padding-right: 5px;
+        }
+</style>
+
+  <body style="background-color: rgb(0, 0, 0)">
+        <h1 style="color: orange; font-size: 60px; font-family:'Segoe UI' ;" id="welcome">Welcome!</h1>
+        <h5 id="tomorrow" style="padding: 0%; color: white; font-family:'Segoe UI' ;">Tomorrow, together.</h5>
+        <input type="text" id="username" placeholder="Username" oninput="playVideo()"style="width: 200px; height: 30px; margin-top: 20px; font-size: 16px; padding: 5px;" />
+        <input type="password" id="password" placeholder="Password" oninput="playVideo()" style="width: 200px; height: 30px; margin-top: 20px; font-size: 16px; padding: 5px;" />
+        <button id="loginButton" style="width: 100px; height: 30px; margin-top: 20px; font-size: 16px; background-color: orange; color: white; border: none; cursor: pointer;">Login</button>
+        <p id="errorMessage" style="color: red; font-family:'Segoe UI' ; display: none;">Invalid username or password.</p>
+        <p style="display: none; color: white"id="money">Available balance:<p  style="display: none; color: gold" id="money2">0.08172 BTC</p></p>
+        <p id="enterMessage" style="color: green; font-family:'Segoe UI' ; display: none;">Successfully logged in</p>
+        <button id="transferButton" style ="font-size: 20px; height: 100px; width: 150px; color: white; font-family:'Segoe UI' ; border: none; background-color: greenyellow; display:none" onclick="withdraw()">Transfer</button>
+        <button id="receiveButton" style ="font-size: 20px; height: 100px; width: 150px; color: white; font-family:'Segoe UI' ; border: none; background-color: rgb(47, 161, 255); display:none" onclick="receive()">Receive</button>
+
+   <video id="myVideo" width="320" height="240">
+    <source src="C:\Users\sassi\Downloads\Seegson public service announcement.mp4" type="video/mp4">
+</video>
+
+<script>
+    let videoo = true;
+function playVideo() {
+    if (videoo === true) {
+    var video = document.getElementById('myVideo');
+    video.play();
+    videoo = false;
+    }
+}
+</script>
+        <script src = "Untitled-2.js"></script>
+    </body>
 </html>
