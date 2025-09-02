@@ -99,12 +99,12 @@ function reloadp() {
 }
 
 function cheating() {
-
+window.location("")
 }
 
 function receive() {
     if (loggedIn === true) {
     alert("Your BTC Address: " + address) } else {
-        alert("Please login first.")
+        cheating()
     }
 }
