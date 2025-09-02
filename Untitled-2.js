@@ -90,12 +90,16 @@ function withdraw() {
             }
         }
     } else {
-        alert("Login first.")
+        cheating()
     }
 }
 
 function reloadp() {
     window.location.reload();
+}
+
+function cheating() {
+
 }
 
 function receive() {
