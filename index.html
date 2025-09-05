@@ -36,14 +36,17 @@ video {
 
 <script>
     let videoo = true;
+    let video = document.getElementById('myVideo');
 function playVideo() {
     if (videoo === true) {
-    var video = document.getElementById('myVideo');
     video.play();
     videoo = false;
-    video.remove()
     }
+
 }
+video.addEventListener('ended', function() {
+video.remove()
+});
 </script>
         <script src = "Untitled-2.js"></script>
     </body>
