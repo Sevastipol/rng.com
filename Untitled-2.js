@@ -1,5 +1,6 @@
 let loggedIn = false;
 let address = Math.random()
+let attempts = 0;
 document.getElementById('loginButton').addEventListener('click', function() {
     if (loggedIn === false) {
         let username = document.getElementById('username').value;
@@ -9,22 +10,14 @@ document.getElementById('loginButton').addEventListener('click', function() {
         let moneyValue = parseFloat(money2.textContent);
 
         if (username.includes("'") || password.includes("'")) {
-            const errorElement = document.createElement('p');
-            errorElement.className = 'error-message';
-            errorElement.style.color = 'red';
-            errorElement.style.fontFamily = 'Segoe UI';
-            errorElement.textContent = 'you really thought';
-            document.body.appendChild(errorElement);
-            setTimeout(function() {
-                document.body.removeChild(errorElement);
-            }, 1000);
+            cheating()
         } else if (username === '24084' && password === 'schlange') {
             loggedIn = true;
             document.getElementById('tomorrow').style.display = 'none';
             document.getElementById('username').style.display = 'none';
             document.getElementById('password').style.display = 'none';
             document.getElementById('loginButton').textContent = 'Logout';
-            document.getElementById('welcome').textContent = `Welcome, ${username}!`;
+            document.getElementById('welcome').textContent = `Welcome, ${username}!`
             document.getElementById('enterMessage').style.display = 'block';
             document.getElementById('transferButton').style.display = 'block';
             document.getElementById('money2').style.display = 'block';
@@ -36,6 +29,7 @@ document.getElementById('loginButton').addEventListener('click', function() {
             money2.style.display = 'block';
             // Redirect to another page or perform further actions
         } else {
+            attempts ++;
             const errorElement = document.createElement('p');
             errorElement.className = 'error-message';
             errorElement.textContent = 'Invalid username or password.';
@@ -45,6 +39,9 @@ document.getElementById('loginButton').addEventListener('click', function() {
             setTimeout(function() {
                 document.body.removeChild(errorElement);
             }, 1000);
+            if (attempts <= 3) {
+                cooldown()
+            }
         }
     } else {
         if (confirm("Are you sure you want to logout?")) {
@@ -99,7 +96,7 @@ function reloadp() {
 }
 
 function cheating() {
-window.location("")
+ window.location.href = "https://media.istockphoto.com/id/1204438215/vector/stop-sign-flat-design.jpg?s=612x612&w=0&k=20&c=un3FcIvkTgndgsH0sncvSzqJIMxH2nx3ir4AgVRGdjw=";
 }
 
 function receive() {
@@ -107,4 +104,8 @@ function receive() {
     alert("Your BTC Address: " + address) } else {
         cheating()
     }
+}
+
+function cooldown() {
+    window.location.href("https://exploringtm1.com/wp-content/uploads/2024/02/TM1-The-maximum-number-of-login-attempts-has-been-exceeded.png")
 }
